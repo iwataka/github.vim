@@ -26,7 +26,7 @@ fu! github#readme(...)
   else
     enew
     setlocal buftype=nofile
-    exe 'file '.s:github_prefix.owner.'/'.repo.'/'.readme['name']
+    silent exe 'file '.s:github_prefix.owner.'/'.repo.'/'.readme['name']
     let b:github_owner = owner
     let b:github_repo = repo
 
@@ -67,17 +67,18 @@ fu! github#readme2browser(owner, repo)
   call s:open_url(s:readme_result[a:owner][a:repo].html_url)
 endfu
 
-fu! github#search(query)
-  let search = s:search(a:query)
+fu! github#search(...)
+  let query = join(a:000, '+')
+  let search = s:search(query)
 
-  let fname = s:github_prefix.'search?='.a:query
+  let fname = s:github_prefix.'search?='.query
   if bufexists(fname)
     exe 'edit '.fname
   else
     enew
     setlocal buftype=nofile
-    exe 'file '.fname
-    let b:github_query = a:query
+    silent exe 'file '.fname
+    let b:github_query = query
 
     set modifiable
     set noreadonly
@@ -88,9 +89,22 @@ fu! github#search(query)
 
     set nomodifiable
     set readonly
+    set nolist
+    call s:github_search_syntax()
     nnoremap <buffer> <cr> :call github#search2readme(b:github_query, line('.'))<cr>
     nnoremap <buffer> O :call github#search2browser(b:github_query, line('.'))<cr>
+
+    echo 'Enter to open README, O to open in your browser'
   endif
+endfu
+
+fu! s:github_search_syntax()
+  syn match githubRepoFullName "\v^\S+/\S+" contained
+  syn match githubRepoStar "\v^\S+/\S+\s+\d+" contains=githubRepoFullName contained
+  syn match githubRepoDesc "\v^\S+/\S+\s+\d+.+" contains=githubRepoStar
+  hi link githubRepoFullName Identifier
+  hi link githubRepoStar Number
+  hi link githubRepoDesc Comment
 endfu
 
 fu! github#search2readme(query, line)
@@ -118,7 +132,7 @@ fu! github#releases(...)
   else
     enew
     set buftype=nofile
-    exe 'file '.fname
+    silent exe 'file '.fname
     let b:github_owner = owner
     let b:github_repo = repo
 
@@ -153,7 +167,7 @@ fu! github#releases_assets(owner, repo, tag_name)
     else
       enew
       set buftype=nofile
-      exe 'file '.fname
+      silent exe 'file '.fname
       let b:github_owner = a:owner
       let b:github_repo = a:repo
 
