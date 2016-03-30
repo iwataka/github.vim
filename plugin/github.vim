@@ -3,6 +3,9 @@ if &compatible || (exists('g:loaded_github') && g:loaded_github)
 endif
 let g:loaded_github = 1
 
-com! -nargs=+ Greadme call github#readme(<f-args>)
-com! -nargs=+ Gsearch call github#search(<f-args>)
-com! -nargs=+ Greleases call github#releases(<f-args>)
+let g:github_api_url = 'https://api.github.com'
+let g:github_file_prefix = 'github://'
+
+com! -nargs=+ Greadme call github#readme#open(<f-args>)
+com! -nargs=+ Gsearch call github#search#open(<f-args>)
+com! -nargs=+ Greleases call github#releases#open(<f-args>)
