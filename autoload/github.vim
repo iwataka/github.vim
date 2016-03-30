@@ -32,16 +32,16 @@ fu! github#readme(...)
 
     let ext = fnamemodify(readme['name'], ':e')
     if ext =~ '\vmd|markdown'
-      set ft=markdown
+      setlocal ft=markdown
     elseif ext =~ '\vadoc'
-      set ft=asciidoc
+      setlocal ft=asciidoc
     elseif ext =~ '\vrst'
-      set ft=rst
+      setlocal ft=rst
     endif
 
     " See http://vim.wikia.com/wiki/Newlines_and_nulls_in_Vim_script
-    set modifiable
-    set noreadonly
+    setlocal modifiable
+    setlocal noreadonly
     if line('$') != 0
       let content = substitute(readme.content, '\n', '', 'g')
       if readme.encoding == 'base64'
@@ -51,8 +51,8 @@ fu! github#readme(...)
       normal! gg
     endif
 
-    set nomodifiable
-    set readonly
+    setlocal nomodifiable
+    setlocal readonly
 
     nnoremap <buffer> O :call github#readme2browser(b:github_owner, b:github_repo)<cr>
     nnoremap <buffer> R :call github#readme2releases(b:github_owner, b:github_repo)<cr>
@@ -80,16 +80,16 @@ fu! github#search(...)
     silent exe 'file '.fname
     let b:github_query = query
 
-    set modifiable
-    set noreadonly
+    setlocal modifiable
+    setlocal noreadonly
     if line('$') != 0
       call append(0, s:format_search_items(search.items))
       normal! gg
     endif
 
-    set nomodifiable
-    set readonly
-    set nolist
+    setlocal nomodifiable
+    setlocal readonly
+    setlocal nolist
     call s:github_search_syntax()
     nnoremap <buffer> <cr> :call github#search2readme(b:github_query, line('.'))<cr>
     nnoremap <buffer> O :call github#search2browser(b:github_query, line('.'))<cr>
@@ -131,20 +131,20 @@ fu! github#releases(...)
     exe 'edit '.fname
   else
     enew
-    set buftype=nofile
+    setlocal buftype=nofile
     silent exe 'file '.fname
     let b:github_owner = owner
     let b:github_repo = repo
 
-    set modifiable
-    set noreadonly
+    setlocal modifiable
+    setlocal noreadonly
     if line('$') != 0
       call append(0, s:format_releases(releases))
       normal! gg
     endif
 
-    set nomodifiable
-    set readonly
+    setlocal nomodifiable
+    setlocal readonly
 
     nnoremap <buffer> <cr> :call github#releases_assets(b:github_owner, b:github_repo, getline('.'))<cr>
   endif
@@ -166,20 +166,20 @@ fu! github#releases_assets(owner, repo, tag_name)
       exe 'edit '.fname
     else
       enew
-      set buftype=nofile
+      setlocal buftype=nofile
       silent exe 'file '.fname
       let b:github_owner = a:owner
       let b:github_repo = a:repo
 
-      set modifiable
-      set noreadonly
+      setlocal modifiable
+      setlocal noreadonly
       if line('$') != 0
         call append(0, s:format_releases_assets(assets))
         normal! gg
       endif
 
-      set nomodifiable
-      set readonly
+      setlocal nomodifiable
+      setlocal readonly
     endif
   endif
 endfu
