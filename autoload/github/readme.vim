@@ -19,7 +19,7 @@ fu! github#readme#open(...)
   if bufexists(fname)
     exe 'edit '.fname
   else
-    enew
+    noswapfile enew
     setlocal buftype=nofile
     silent exe 'file '.g:github_file_prefix.owner.'/'.repo.'/'.readme['name']
     let b:github_owner = owner

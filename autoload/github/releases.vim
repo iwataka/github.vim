@@ -11,7 +11,7 @@ fu! github#releases#open(...)
   if bufexists(fname)
     exe 'edit '.fname
   else
-    enew
+    noswapfile enew
     setlocal buftype=nofile
     silent exe 'file '.fname
     let b:github_owner = owner
@@ -50,7 +50,7 @@ fu! github#releases#open_assets(owner, repo, tag_name)
     if bufexists(fname)
       exe 'edit '.fname
     else
-      enew
+      noswapfile enew
       setlocal buftype=nofile
       silent exe 'file '.fname
       let b:github_owner = a:owner

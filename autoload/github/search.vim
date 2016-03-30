@@ -6,7 +6,7 @@ fu! github#search#open(...)
   if bufexists(fname)
     exe 'edit '.fname
   else
-    enew
+    noswapfile enew
     setlocal buftype=nofile
     silent exe 'file '.fname
     let b:github_query = query
