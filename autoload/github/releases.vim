@@ -5,7 +5,7 @@ fu! github#releases#open(...)
     let owner = a:1
     let repo = a:2
   endif
-  let releases = s:releases(owner, repo)
+  let releases = github#releases#get(owner, repo)
 
   let fname = g:github_file_prefix.'repos/'.owner.'/'.repo.'/releases'
   if bufexists(fname)
@@ -36,7 +36,7 @@ fu! s:mappings()
 endfu
 
 fu! github#releases#open_assets(owner, repo, tag_name)
-  let releases = s:releases(a:owner, a:repo)
+  let releases = github#releases#get(a:owner, a:repo)
   let assets = []
   for release in releases
     if release.tag_name == a:tag_name
@@ -94,7 +94,7 @@ fu! github#releases#browse_asset(owner, repo, tag_name, line)
   endfor
 endfu
 
-fu! s:releases(owner, repo)
+fu! github#releases#get(owner, repo)
   if !exists('s:releases_result')
     let s:releases_result = {}
   endif
@@ -112,7 +112,7 @@ fu! s:releases(owner, repo)
 endfu
 
 fu! s:assets(owner, repo, tag_name)
-  let releases = s:releases(a:owner, a:repo)
+  let releases = github#releases#get(a:owner, a:repo)
   for release in releases
     if release.tag_name == a:tag_name
       return release.assets

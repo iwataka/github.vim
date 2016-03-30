@@ -1,6 +1,6 @@
 fu! github#search#open(...)
   let query = join(a:000, '+')
-  let search = s:search(query)
+  let search = github#search#get(query)
 
   let fname = g:github_file_prefix.'search?='.query
   if bufexists(fname)
@@ -25,6 +25,23 @@ fu! github#search#open(...)
 
     call s:mappings()
     echo 'Enter to open README, O to open in your browser'
+  endif
+endfu
+
+fu! github#search#get(query)
+  if !exists('s:search_result')
+    let s:search_result = {}
+  endif
+  if has_key(s:search_result, a:query)
+    return s:search_result[a:query]
+  else
+    let getdata = {
+          \ 'q': a:query
+          \ }
+    let reply = webapi#http#get(g:github_api_url.'/search/repositories', getdata)
+    let content = webapi#json#decode(reply.content)
+    let s:search_result[a:query] = content
+    return content
   endif
 endfu
 
@@ -71,21 +88,4 @@ endfu
 fu! github#search#browser(query, line)
   let item = s:search_result[a:query].items[a:line - 1]
   call github#browse(item.html_url)
-endfu
-
-fu! s:search(query)
-  if !exists('s:search_result')
-    let s:search_result = {}
-  endif
-  if has_key(s:search_result, a:query)
-    return s:search_result[a:query]
-  else
-    let getdata = {
-          \ 'q': a:query
-          \ }
-    let reply = webapi#http#get(g:github_api_url.'/search/repositories', getdata)
-    let content = webapi#json#decode(reply.content)
-    let s:search_result[a:query] = content
-    return content
-  endif
 endfu

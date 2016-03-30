@@ -2,7 +2,7 @@ fu! github#readme#open(...)
   if a:0 == 1
     let segs = split(a:1, '/')
     if len(segs) == 1
-      let search = s:search(segs[0])
+      let search = github#search#get(segs[0])
       let owner = search.items[0].owner.login
       let repo = a:1
     else
@@ -12,7 +12,7 @@ fu! github#readme#open(...)
     let owner = a:1
     let repo = a:2
   endif
-  let readme = s:readme(owner, repo)
+  let readme = github#readme#get(owner, repo)
   let get = github#get(owner, repo)
 
   let fname = g:github_file_prefix.owner.'/'.repo.'/'.readme['name']
@@ -53,7 +53,7 @@ fu! github#readme#open(...)
   endif
 endfu
 
-fu! s:readme(owner, repo)
+fu! github#readme#get(owner, repo)
   if !exists('s:readme_result')
     let s:readme_result = {}
   endif
