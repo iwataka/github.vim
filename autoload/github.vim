@@ -33,7 +33,7 @@ fu! github#readme(...)
     let ext = fnamemodify(readme['name'], ':e')
     if ext =~ '\vmd|markdown'
       setlocal ft=markdown
-    elseif ext =~ '\vadoc'
+    elseif ext =~ '\vadoc|asciidoc'
       setlocal ft=asciidoc
     elseif ext =~ '\vrst'
       setlocal ft=rst
