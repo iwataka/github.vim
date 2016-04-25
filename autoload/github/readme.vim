@@ -39,11 +39,7 @@ fu! github#readme#open(...)
     setlocal modifiable
     setlocal noreadonly
     if line('$') != 0
-      let content = substitute(readme.content, '\n', '', 'g')
-      if readme.encoding == 'base64'
-        let content = webapi#base64#b64decode(content)
-      endif
-      call append(0, split(content, '\n'))
+      call append(0, github#readme#decode(readme))
       normal! gg
     endif
 
@@ -51,6 +47,14 @@ fu! github#readme#open(...)
     setlocal readonly
     call s:mappings()
   endif
+endfu
+
+fu! github#readme#decode(readme)
+  let content = substitute(a:readme.content, '\n', '', 'g')
+  if a:readme.encoding == 'base64'
+    let content = webapi#base64#b64decode(content)
+  endif
+  return split(content, '\n')
 endfu
 
 fu! github#readme#get(owner, repo)
