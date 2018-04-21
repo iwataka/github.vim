@@ -77,7 +77,7 @@ fu! s:mappings()
     nnoremap <buffer> <silent> <cr>
           \ :call github#search#readme(b:github_query, line('.'))<cr>
     nnoremap <buffer> <silent> O
-          \ :call github#search2browser(b:github_query, line('.'))<cr>
+          \ :call github#search#browse(b:github_query, line('.'))<cr>
 endfu
 
 fu! github#search#readme(query, line)
@@ -85,7 +85,7 @@ fu! github#search#readme(query, line)
   call github#contents#open(item.full_name)
 endfu
 
-fu! github#search#browser(query, line)
+fu! github#search#browse(query, line)
   let item = s:search_result[a:query].items[a:line - 1]
   call github#browse(item.html_url)
 endfu
