@@ -2,9 +2,9 @@
 
 ## Usage
 
-+ `Greadme` to open README of the specified repository
-+ `Gsearch` to search repositories by the specified query
-+ `Greleases` to get the releases of the specified repository
++ `GHReadme` to open README of the specified repository
++ `GHSearch` to search repositories by the specified query
++ `GHReleases` to get the releases of the specified repository
 
 ## Requirements
 
