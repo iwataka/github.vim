@@ -82,7 +82,7 @@ endfu
 
 fu! github#search#readme(query, line)
   let item = s:search_result[a:query].items[a:line - 1]
-  call github#readme#open(item.full_name)
+  call github#contents#open(item.full_name)
 endfu
 
 fu! github#search#browser(query, line)

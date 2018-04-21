@@ -2,7 +2,7 @@
 
 ## Usage
 
-+ `GHReadme` to open README of the specified repository
++ `GHOpen` to open a file of the specified repository
 + `GHSearch` to search repositories by the specified query
 + `GHReleases` to get the releases of the specified repository
 

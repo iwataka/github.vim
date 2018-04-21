@@ -31,10 +31,10 @@ fu! github#clone_handler(chan, msg)
 endfu
 
 fu! github#browse(url)
-  if has('unix')
-    call system('xdg-open '.a:url)
-  elseif has('mac')
+  if has('mac')
     call system('open '.a:url)
+  elseif has('unix')
+    call system('xdg-open '.a:url)
   elseif has('win32unix')
     call system('cygstart '.a:url)
   else
