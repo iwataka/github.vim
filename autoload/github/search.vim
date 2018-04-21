@@ -78,6 +78,10 @@ fu! s:mappings()
           \ :call github#search#readme(b:github_query, line('.'))<cr>
     nnoremap <buffer> <silent> O
           \ :call github#search#browse(b:github_query, line('.'))<cr>
+    nnoremap <buffer> <silent> R
+          \ :call github#search#releases_open(b:github_query, line('.'))<cr>
+    nnoremap <buffer> <silent> C
+          \ :call github#search#clone(b:github_query, line('.'))<cr>
 endfu
 
 fu! github#search#readme(query, line)
@@ -88,4 +92,14 @@ endfu
 fu! github#search#browse(query, line)
   let item = s:search_result[a:query].items[a:line - 1]
   call github#browse(item.html_url)
+endfu
+
+fu! github#search#releases_open(query, line)
+  let item = s:search_result[a:query].items[a:line - 1]
+  call github#releases#open(item.owner.login, item.name)
+endfu
+
+fu! github#search#clone(query, line)
+  let item = s:search_result[a:query].items[a:line - 1]
+  call github#clone(item.html_url)
 endfu

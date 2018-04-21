@@ -80,7 +80,7 @@ fu! s:format_assets(assets)
 endfu
 
 fu! s:mappings_assets()
-  nnoremap <buffer> <silent> D
+  nnoremap <buffer> <silent> <cr>
         \ :call github#releases#browse_asset(b:github_owner, b:github_repo, b:github_tag_name, getline('.'))<cr>
 endfu
 

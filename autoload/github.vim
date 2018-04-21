@@ -17,12 +17,12 @@ endfu
 
 fu! github#clone(url)
   if executable('ghq')
-    let cmd = 'ghq get '.a:url
-    call system(cmd)
+    let cmd = printf('!ghq get %s', a:url)
+    execute cmd
   elseif executable('git')
-    let dest = input('Where to clone? ')
-    let cmd = 'git clone '.a:url.' '.dest
-    call system(cmd)
+    let dest = expand(input('Clone to> ', '', 'dir'))
+    let cmd = printf('!git clone %s %s', a:url, dest)
+    execute cmd
   endif
 endfu
 
