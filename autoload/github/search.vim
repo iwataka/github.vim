@@ -2,7 +2,7 @@ fu! github#search#open(...)
   let query = join(a:000, '+')
   let search = github#search#get(query)
 
-  let fname = g:github_file_prefix.'search?='.query
+  let fname = printf('%ssearch?=%s', g:github_file_prefix, query)
   if bufexists(fname)
     exe 'edit '.fname
   else
@@ -38,7 +38,7 @@ fu! github#search#get(query)
     let getdata = {
           \ 'q': a:query
           \ }
-    let reply = webapi#http#get(g:github_api_url.'/search/repositories', getdata)
+    let reply = webapi#http#get(printf('%s/search/repositories', g:github_api_url), getdata)
     let content = webapi#json#decode(reply.content)
     let s:search_result[a:query] = content
     return content

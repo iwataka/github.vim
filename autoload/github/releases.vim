@@ -7,7 +7,7 @@ fu! github#releases#open(...)
   endif
   let releases = github#releases#get(owner, repo)
 
-  let fname = g:github_file_prefix.'repos/'.owner.'/'.repo.'/releases'
+  let fname = printf('%srepos/%s/%s/releases', g:github_file_prefix, owner, repo)
   if bufexists(fname)
     exe 'edit '.fname
   else
@@ -46,7 +46,7 @@ fu! github#releases#open_assets(owner, repo, tag_name)
   if empty(release)
     return
   else
-    let fname = g:github_file_prefix.'repos/'.a:owner.'/'.a:repo.'/releases/'.a:tag_name
+    let fname = printf('%srepos/%s/%s/releases/%s', g:github_file_prefix, a:owner, a:repo, a:tag_name)
     if bufexists(fname)
       exe 'edit '.fname
     else
@@ -104,7 +104,7 @@ fu! github#releases#get(owner, repo)
   if has_key(s:releases_result[a:owner], a:repo)
     return s:releases_result[a:owner][a:repo]
   else
-    let reply = webapi#http#get(g:github_api_url.'/repos/'.a:owner.'/'.a:repo.'/releases')
+    let reply = webapi#http#get(printf('%s/repos/%s/%s/releases', g:github_api_url, a:owner, a:repo))
     let content = webapi#json#decode(reply.content)
     let s:releases_result[a:owner][a:repo] = content
     return content

@@ -8,7 +8,7 @@ fu! github#get(owner, repo)
   if has_key(s:get_result[a:owner], a:repo)
     return s:get_result[a:owner][a:repo]
   else
-    let reply = webapi#http#get(g:github_api_url.'/repos/'.a:owner.'/'.a:repo)
+    let reply = webapi#http#get(printf('%s/repos/%s/%s', g:github_api_url, a:owner, a:repo))
     let content = webapi#json#decode(reply.content)
     let s:get_result[a:owner][a:repo] = content
     return content

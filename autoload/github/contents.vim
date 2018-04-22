@@ -78,7 +78,7 @@ fu! github#contents#get(owner, repo, path)
     return s:contents_result[a:owner][a:repo][a:path]
   else
     if empty(a:path)
-      let url = g:github_api_url.'/repos/'.a:owner.'/'.a:repo.'/readme'
+      let url = printf('%s/repos/%s/%s/readme', g:github_api_url, a:owner, a:repo)
     else
       let url = printf('%s/repos/%s/%s/contents/%s', g:github_api_url, a:owner, a:repo, a:path)
     endif
