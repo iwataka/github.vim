@@ -74,14 +74,14 @@ fu! s:format(items)
 endfu
 
 fu! s:mappings()
-    nnoremap <buffer> <silent> <cr>
-          \ :call github#search#readme(b:github_query, line('.'))<cr>
-    nnoremap <buffer> <silent> O
-          \ :call github#search#browse(b:github_query, line('.'))<cr>
-    nnoremap <buffer> <silent> R
-          \ :call github#search#releases_open(b:github_query, line('.'))<cr>
-    nnoremap <buffer> <silent> C
-          \ :call github#search#clone(b:github_query, line('.'))<cr>
+  nnoremap <buffer> <silent> <cr>
+        \ :call github#search#readme(b:github_query, line('.'))<cr>
+  nnoremap <buffer> <silent> O
+        \ :call github#search#browse(b:github_query, line('.'))<cr>
+  nnoremap <buffer> <silent> R
+        \ :call github#search#releases_open(b:github_query, line('.'))<cr>
+  nnoremap <buffer> <silent> C
+        \ :call github#search#clone(b:github_query, line('.'))<cr>
 endfu
 
 fu! github#search#readme(query, line)

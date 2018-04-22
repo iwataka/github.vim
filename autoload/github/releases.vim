@@ -31,8 +31,8 @@ fu! github#releases#open(...)
 endfu
 
 fu! s:mappings()
-    nnoremap <buffer> <silent> <cr>
-          \ :call github#releases#open_assets(b:github_owner, b:github_repo, getline('.'))<cr>
+  nnoremap <buffer> <silent> <cr>
+        \ :call github#releases#open_assets(b:github_owner, b:github_repo, getline('.'))<cr>
 endfu
 
 fu! github#releases#open_assets(owner, repo, tag_name)

@@ -90,10 +90,10 @@ fu! github#contents#get(owner, repo, path)
 endfu
 
 fu! s:mappings()
-    nnoremap <buffer> <silent> O
-          \ :call github#browse(b:github_html_url)<cr>
-    nnoremap <buffer> <silent> R
-          \ :call github#releases#open(b:github_owner, b:github_repo)<cr>
-    nnoremap <buffer> <silent> C
-          \ :call github#clone(b:github_html_url)<cr>
+  nnoremap <buffer> <silent> O
+        \ :call github#browse(b:github_html_url)<cr>
+  nnoremap <buffer> <silent> R
+        \ :call github#releases#open(b:github_owner, b:github_repo)<cr>
+  nnoremap <buffer> <silent> C
+        \ :call github#clone(b:github_html_url)<cr>
 endfu
